@@ -1,0 +1,109 @@
+apiVersion: kops.k8s.io/v1alpha2
+kind: Cluster
+metadata:
+  creationTimestamp: null
+  name: clothgram.k8s.local
+spec:
+  api:
+    loadBalancer:
+      type: Public
+  authorization:
+    rbac: {}
+  channel: stable
+  cloudProvider: aws
+  configBase: s3://kops-clothgram-nitesh-state-store/clothgram.k8s.local
+  etcdClusters:
+  - cpuRequest: 200m
+    etcdMembers:
+    - instanceGroup: master-ap-south-1a
+      name: a
+    memoryRequest: 100Mi
+    name: main
+  - cpuRequest: 100m
+    etcdMembers:
+    - instanceGroup: master-ap-south-1a
+      name: a
+    memoryRequest: 100Mi
+    name: events
+  iam:
+    allowContainerRegistry: true
+    legacy: false
+  kubelet:
+    anonymousAuth: false
+  kubernetesApiAccess:
+  - 0.0.0.0/0
+  kubernetesVersion: 1.16.7
+  masterPublicName: api.clothgram.k8s.local
+  networkCIDR: 172.20.0.0/16
+  networking:
+    kubenet: {}
+  nonMasqueradeCIDR: 100.64.0.0/10
+  sshAccess:
+  - 0.0.0.0/0
+  subnets:
+  - cidr: 172.20.32.0/19
+    name: ap-south-1a
+    type: Public
+    zone: ap-south-1a
+  - cidr: 172.20.64.0/19
+    name: ap-south-1b
+    type: Public
+    zone: ap-south-1b
+  - cidr: 172.20.96.0/19
+    name: ap-south-1c
+    type: Public
+    zone: ap-south-1c
+  topology:
+    dns:
+      type: Public
+    masters: public
+    nodes: public
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  creationTimestamp: null
+  labels:
+    kops.k8s.io/cluster: clothgram.k8s.local
+  name: master-ap-south-1a
+spec:
+  image: kope.io/k8s-1.16-debian-stretch-amd64-hvm-ebs-2020-01-17
+  machineType: t2.micro
+  maxSize: 1
+  minSize: 1
+  nodeLabels:
+    kops.k8s.io/instancegroup: master-ap-south-1a
+  role: Master
+  subnets:
+  - ap-south-1a
+
+---
+
+apiVersion: kops.k8s.io/v1alpha2
+kind: InstanceGroup
+metadata:
+  labels:
+    kops.k8s.io/cluster: clothgram.k8s.local
+  name: nodes
+spec:
+  image: kope.io/k8s-1.16-debian-stretch-amd64-hvm-ebs-2020-01-17
+  machineType: t2.micro
+  role: Node
+  maxSize: 4
+  rootVolumeSize: 30
+  minSize: 1
+  # You can manually set the maxPrice you're willing to pay - it will default to the onDemand price.
+  maxPrice: ".0068"
+  # add the mixed instance policy here
+  mixedInstancesPolicy:
+    instances:
+    - t3.small
+    - t2.small
+    - t2.medium
+    onDemandAboveBase: 0
+    spotInstancePools: 3
+  subnets:
+  - ap-south-1a
+  - ap-south-1b
