@@ -40,3 +40,17 @@ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboar
  1315  kops delete -f spot-ig-2.yml --state $kops_bucket_state --yes
  1316  kops create -f spot-ig-2.yml --state $kops_bucket_state
  1317  kops update cluster clothgram.k8s.local --state $kops_bucket_state --yes
+
+## Autscale
+
+First download current script from - https://github.com/kubernetes/kops/tree/master/addons/cluster-autoscaler
+chmod +x cluster.sh #note it will deploy the cluster-autoscaler to nodes nothing to do 
+:) 
+
+
+
+## troubleshoot command 
+
+kubectl get pod cluster-autoscaler-8d8bbdfdd-jsd4f -n kube-system --output=json
+kubectl logs -f pod/cluster-autoscaler-db75cc668-qghnb -n kube-system
+kubectl logs -f pod/cluster-autoscaler-74546bb644-7lw54 -n kube-system
