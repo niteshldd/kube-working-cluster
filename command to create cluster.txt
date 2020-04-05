@@ -1,6 +1,6 @@
 To create cluster  - https://medium.com/containermind/how-to-create-a-kubernetes-cluster-on-aws-in-few-minutes-89dda10354f4
 to crete cluster with spot instamce - https://www.replex.io/blog/the-ultimate-guide-to-deploying-kubernetes-cluster-on-aws-ec2-spot-instances-using-kops-and-eks
-
+to create spot instances with nodes - https://onica.com/blog/devops/aws-spot-instances-with-kubernetes-kops/
 
 Create S3 bucket - aws s3api create-bucket --bucket kops-clothgram-nitesh-state-store --create-bucket-configuration LocationConstraint=ap-south-1
 Versioning - aws s3api put-bucket-versioning --bucket $bucket_name --versioning-configuration Status=Enabled
