@@ -6,6 +6,9 @@ metadata:
   name: spot-ig
 spec:
   cloudLabels:
+    k8s.io/cluster-autoscaler/enabled: ""
+    k8s.io/cluster-autoscaler/node-template/label: ""
+  cloudLabels:
     Role: compute
   image: kope.io/k8s-1.16-debian-stretch-amd64-hvm-ebs-2020-01-17
   machineType: t2.micro
@@ -26,3 +29,5 @@ spec:
   subnets:
   - ap-south-1a
   - ap-south-1b
+
+
