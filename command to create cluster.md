@@ -1,11 +1,12 @@
-To create cluster  - https://medium.com/containermind/how-to-create-a-kubernetes-cluster-on-aws-in-few-minutes-89dda10354f4
+# To create cluster  - https://medium.com/containermind/how-to-create-a-kubernetes-cluster-on-aws-in-few-minutes-89dda10354f4
 to crete cluster with spot instamce - https://www.replex.io/blog/the-ultimate-guide-to-deploying-kubernetes-cluster-on-aws-ec2-spot-instances-using-kops-and-eks
 to create spot instances with nodes - https://onica.com/blog/devops/aws-spot-instances-with-kubernetes-kops/
 
-Create S3 bucket - aws s3api create-bucket --bucket kops-clothgram-nitesh-state-store --create-bucket-configuration LocationConstraint=ap-south-1
+## Create S3 bucket - aws s3api create-bucket --bucket kops-clothgram-nitesh-state-store --create-bucket-configuration LocationConstraint=ap-south-1
 Versioning - aws s3api put-bucket-versioning --bucket $bucket_name --versioning-configuration Status=Enabled
 
 
+### Command to create json
 
 kops create cluster \
 --name $cluster_name \
@@ -29,7 +30,7 @@ kops update cluster clothgram.k8s.local --yes
 
 To create dashboard - https://github.com/kubernetes/dashboard
 
-Follow below to spot instamce  
+## Follow below to spot instamce  
 
 to kill proxy - killall kubectl
 kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-rc7/aio/deploy/recommended.yaml
