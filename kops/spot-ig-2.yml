@@ -3,19 +3,14 @@ kind: InstanceGroup
 metadata:
   labels:
     kops.k8s.io/cluster: clothgram.k8s.local
-  name: spot-ig
+  name: Master
 spec:
-  cloudLabels:
-    k8s.io/cluster-autoscaler/enabled: ""
-    k8s.io/cluster-autoscaler/node-template/label: ""
-  cloudLabels:
-    Role: compute
   image: kope.io/k8s-1.16-debian-stretch-amd64-hvm-ebs-2020-01-17
   machineType: t2.micro
-  role: Node
-  maxSize: 4
+  role: Master
+  maxSize: 2
   rootVolumeSize: 30
-  minSize: 1
+  minSize: 0
   # You can manually set the maxPrice you're willing to pay - it will default to the onDemand price.
   maxPrice: ".0068"
   # add the mixed instance policy here
@@ -29,5 +24,3 @@ spec:
   subnets:
   - ap-south-1a
   - ap-south-1b
-
-

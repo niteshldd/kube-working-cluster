@@ -158,7 +158,7 @@ spec:
             - --stderrthreshold=info
             - --cloud-provider=aws
             - --skip-nodes-with-local-storage=false
-            - --nodes=1:4:nodes.clothgram.k8s.local
+            - --nodes=1:4:nodes.kube.rukjaana.com
           env:
             - name: AWS_REGION
               value: ap-south-1
