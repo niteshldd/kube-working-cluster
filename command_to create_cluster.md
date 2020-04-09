@@ -64,7 +64,7 @@ chmod +x cluster.sh #note it will deploy the cluster-autoscaler to nodes nothing
 
 kubectl get pod cluster-autoscaler-8d8bbdfdd-jsd4f -n kube-system --output=json
 kubectl logs -f pod/cluster-autoscaler-db75cc668-qghnb -n kube-system
-kubectl logs -f pod/cluster-autoscaler-74546bb644-7lw54 -n kube-system
+kubectl logs -f pod/cluster-autoscaler-764ddffccc-zhkb8  -n kube-system
 
 ## watch command
 
@@ -123,3 +123,19 @@ kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboar
 Step 7)
 
 kubectl proxy 
+
+
+### New steps to follow 
+
+https://samratpriyadarshi.com/setup-cluster-autoscaler/
+When cluster not work follow this - https://medium.com/@youest/kubernetes-ha-kops-etcd-cluster-recovery-4a71a1f1bc90
+
+
+Value 
+
+Suggestions:
+ * validate cluster: kops validate cluster
+ * list nodes: kubectl get nodes --show-labels
+ * ssh to the master: ssh -i ~/.ssh/id_rsa admin@api.kube.rukjaana.com
+ * the admin user is specific to Debian. If not using Debian please use the appropriate user based on your OS.
+ * read about installing addons at: https://github.com/kubernetes/kops/blob/master/docs/operations/addons.md.
