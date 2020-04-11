@@ -14,12 +14,13 @@ pipeline {
         }
       }
     }
-    node('Apply Kubernetes Files') {
+    stage('Apply Kubernetes Files') {
       steps {
-          withKubeConfig([credentialsId: 'kubeconfig',serverUrl: 'https://api.kube.rukjaana.com']) {
+          withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://api.kube.rukjaana.com']) {
           sh 'kubectl get all'
           sh 'kubectl rollout restart deployment/client-deployment -n development'
         }
       }
   }
-}}
+}
+}
