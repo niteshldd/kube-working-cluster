@@ -73,6 +73,10 @@ Deployment
 kubectl describe pods client-deployment-6744d84985-565s8 
 
 
+  
+docker build -t niteshldd/multi-client:latest -f ./kube-multi-client/test_com/client/Dockerfile ./kube-multi-client/test_com/client
+docker build -t niteshldd/multi-server:latest -f ./kube-multi-client/test_com/server/Dockerfile ./kube-multi-client/test_com/server
+docker build -t niteshldd/multi-worker:latest -f ./kube-multi-client/test_com/worker/Dockerfile
 
  
 

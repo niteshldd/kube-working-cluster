@@ -10,7 +10,7 @@ spec:
       component: web # This label give access to templates:metadata:labels 
   template:
     metadata:
-      labels:
+      labels:x
         component: web # This lable is used by match Labels
     spec:
       containers:

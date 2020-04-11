@@ -100,6 +100,23 @@ kubectl get pods -n default
 
 kubectl apply -f ambassador-service.yaml -n default
 
+
+## Jenkins for CI/CD
+
+Jenkins username and password 
+
+username - nitesh
+password - Welcome@123
+email - nitesh@uruvelaa.com 
+
+Step by step explanation - https://developer.ibm.com/technologies/devops/tutorials/configure-a-cicd-pipeline-with-jenkins-on-kubernetes/
+Use username and password from 
+\home\uruvelaa\.kube 
+vi config and get the username and password 
+
+- Jenkins URL - https://jenkins.kube.rukjaana.com/
+
+
 ## Artcile used for this 
 
 --------DOCS FOR STORAGE ---------------------
