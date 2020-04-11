@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: login to docker
     - name: Started login 
       env:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
