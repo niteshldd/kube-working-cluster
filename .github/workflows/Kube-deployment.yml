@@ -19,8 +19,8 @@ jobs:
         DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
       run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - name: Build the Docker image
-      run: docker build -t niteshldd/multi-client:latest ./kube-multi-client/test_com/client
-    - name: Build the docker server
-      run: docker build -t niteshldd/multi-server:latest ./kube-multi-client/test_com/server
-    - name: Build the docker worker       
-      run: docker build -t niteshldd/multi-worker:latest ./kube-multi-client/test_com/worker
+      run: |
+       docker build -t niteshldd/multi-client:latest ./kube-multi-client/test_com/client
+       docker build -t niteshldd/multi-server:latest ./kube-multi-client/test_com/server
+       docker build -t niteshldd/multi-worker:latest ./kube-multi-client/test_com/worker
+
