@@ -18,7 +18,7 @@ pipeline {
       steps {
           withKubeConfig([credentialsId: 'kubeconfig']) {
           sh 'kubectl get all'
-          sh 'kubectl rollout restart deployment -n development'
+          sh 'kubectl rollout restart deployment/client-deployment -n development'
         }
       }
   }
