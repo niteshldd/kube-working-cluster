@@ -8,19 +8,18 @@ on:
 
 jobs:
 
-  build:
-
+  deploy:
+    name: Deploy
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+    
+    - name: Checkout
+      uses: actions/checkout@v1
     - name: Started login 
       env:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
       run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - name: Build the Docker image
-      run: |
-       docker build -t niteshldd/multi-client:latest ./kube-multi-client/test_com/client
-       docker build -t niteshldd/multi-server:latest ./kube-multi-client/test_com/server
-       docker build -t niteshldd/multi-worker:latest ./kube-multi-client/test_com/worker
+      run: docker build -t niteshldd/multi-client:latest ./kube-multi-client/test_com/client
