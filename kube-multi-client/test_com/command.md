@@ -107,7 +107,12 @@ Jenkins username and password
 
 username - nitesh
 password - Welcome@123
-email - nitesh.ldd@gmail.com 
+email - nitesh@uruvelaa.com 
+
+Step by step explanation - https://developer.ibm.com/technologies/devops/tutorials/configure-a-cicd-pipeline-with-jenkins-on-kubernetes/
+Use username and password from 
+\home\uruvelaa\.kube 
+vi config and get the username and password 
 
 - Jenkins URL - https://jenkins.kube.rukjaana.com/
 
