@@ -30,5 +30,17 @@ spec:
             backend:
               serviceName: server-cluster-ip-services
               servicePort: 5000  
+    - host: jenkins.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: jenkins-web-services
+              servicePort: 8080
+          - path: /api/?(.*)
+            backend:
+              serviceName: jenkins-api-services
+              servicePort: 50000
+
 
   

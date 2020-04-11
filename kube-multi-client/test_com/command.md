@@ -100,6 +100,18 @@ kubectl get pods -n default
 
 kubectl apply -f ambassador-service.yaml -n default
 
+
+## Jenkins for CI/CD
+
+Jenkins username and password 
+
+username - nitesh
+password - Welcome@123
+email - nitesh.ldd@gmail.com 
+
+- Jenkins URL - https://jenkins.kube.rukjaana.com/
+
+
 ## Artcile used for this 
 
 --------DOCS FOR STORAGE ---------------------

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkins
+  namespace: development
+  labels:
+    app: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      volumes:
+        - name: jenkins-storage
+          persistentVolumeClaim:
+            claimName: jenkins-storage
+      containers:
+      - name: jenkins
+        image: niteshldd/jenkins:latest
+        ports:
+        - containerPort: 8080
+        - containerPort: 50000
+        env:
+        - name: DOCKER_HOST
+          value: tcp://localhost:2375
+      - name: dind
+        image: docker:18.05-dind
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - name: jenkins-storage
+          mountPath: /var/lib/docker
