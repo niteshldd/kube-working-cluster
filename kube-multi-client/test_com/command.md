@@ -116,6 +116,9 @@ vi config and get the username and password
 
 - Jenkins URL - https://jenkins.kube.rukjaana.com/
 
+We can get Jenkins token from 
+- kubectl logs deployment/jenkins -c jenkins
+
 
 ## Artcile used for this 
 
