@@ -16,7 +16,7 @@ jobs:
     - uses: login to docker
     - name: Started login 
       env:
-        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD"}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
         DOCKER_USERNAME: ${{secrets.DOCKER_USERNAME}}
       run: echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
     - name: Build the Docker image
