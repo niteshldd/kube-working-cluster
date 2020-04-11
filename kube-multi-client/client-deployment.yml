@@ -4,7 +4,7 @@ metadata:
   name: client-deployment
   namespace: development
 spec:
-  replicas: 1 # This what we are making extra changes compare to kind pod and adding matchlevels 
+  replicas: 2 # This what we are making extra changes compare to kind pod and adding matchlevels 
   selector:
     matchLabels:
       component: web # This label give access to templates:metadata:labels 
@@ -15,6 +15,8 @@ spec:
     spec:
       containers:
         - name: client
-          image: stephengrider/multi-client
+          image: niteshldd/multi-client
           ports:
-           - containerPort: 3000
+           - containerPort: 3000 #changing configuration in client-deployment will applied by changing the configuration
+
+#Deplyoment will roll the new configuration 

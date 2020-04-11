@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: ambassador
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: "arn:aws:acm:ap-south-1:910441477401:certificate/f8c3b18a-de4b-4aa0-97ee-82cfd6441c03"
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: "443"
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: "tcp"
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    service.beta.kubernetes.io/aws-load-balancer-proxy-protocol: "*"
+    getambassador.io/config: |
+      ---
+      apiVersion: getambassador.io/v2
+      kind:  Module
+      name:  ambassador
+      config:
+        use_proxy_proto: true
+        use_remote_address: false
+spec:
+  loadBalancerSourceRanges:
+  - 0.0.0.0/0
+  type: LoadBalancer
+  ports:
+  - name: ambassador-http
+    port: 80
+    targetPort: 80
+  - name: ambassador-https
+    port: 443
+    targetPort: 80
+  selector:
+    service: ambassador

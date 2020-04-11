@@ -69,7 +69,8 @@ Deployment
 - Monitors the state of each pod, Updating as nessecary 
 - Good for dev and Prod 
 
-
+- Below help us to see the configuration of the pods 
+kubectl describe pods client-deployment-6744d84985-565s8 
 
 
 

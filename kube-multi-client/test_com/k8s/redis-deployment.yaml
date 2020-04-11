@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  namespace: development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      newlabels: redis
+  template:
+    metadata:
+      labels: 
+        newlabels: redis
+    spec:
+      containers:
+        - name: redis
+          image: redis
+          ports:
+            - containerPort: 6379
+
+#redis cluster mode need to setup
