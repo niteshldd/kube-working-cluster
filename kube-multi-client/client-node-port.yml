@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: development
+  name: client-node-port
+spec:
+  type: NodePort
+  #Not to use nodeport in production it use expose the port to outside world 
+  ports:
+    - port: 3050 #other services will use this port 
+      targetPort: 3000 #For port 
+      nodePort: 31515 #this port will get expose to outside world its between 30000-32767
+  selector:
+    component: web
+
+    #We will use selectore from client-pod
+  #if we change the labels in client-pod to tear: fronted then in selector also need to have tear:frontend.

@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgress-deployment
+  namespace: development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      newlabels: postgress
+  template:
+    metadata:
+      labels:
+        newlabels: postgress
+    spec:
+      volumes:
+        - name: postgress-storage
+          persistentVolumeClaim:
+            claimName: db-storage
+      containers:
+          - name: postgress
+            image: postgres
+            ports:
+              - containerPort: 5432
+            volumeMounts:
+              - name: postgress-storage #It will same as volumes in spec so it can use same
+                mountPath: /var/lib/postgresql/data #Path to mount in container
+                subPath: postgres #It will be storage as in EBS postgress-storage/postgres
+            env:
+              - name: PGPASSWORD # name of the enviroment value as its look for same 
+                valueFrom: #we are refrencing from secret from applied by command 
+                  secretKeyRef: 
+                    name: pgpassword
+                    key: PGPASSWORD  # We can change the name of the 
+              - name: POSTGRES_PASSWORD
+                valueFrom: #we are refrencing from secret from applied by command 
+                  secretKeyRef: 
+                    name: pgpassword
+                    key: PGPASSWORD  # We can change the name of the 
+#Create cluster of postgress 

@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: server-deployment
+  namespace: development
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      newlabels: server
+  template:
+    metadata:
+      labels:
+        newlabels: server
+    spec:
+      containers:
+        - name: server
+          image: niteshldd/multi-server
+          ports:
+            - containerPort: 5000
+          env:
+            - name: REDIS_HOST
+              value: redis-cluster-ip-services
+            - name: REDIS_PORT
+              value: '6379'
+            - name: PGUSER
+              value: postgres
+            - name: PGHOST
+              value: postrgess-cluster-ip-services
+            - name: PGDATABASE
+              value: postgres
+            - name: PGPORT
+              value: '5432' #need to use as 'value' as env number can't be with ''
+            - name: PGPASSWORD # name of the enviroment value as its look for same 
+              valueFrom:        #we are refrencing from secret from applied by command 
+                secretKeyRef: 
+                  name: pgpassword
+                  key: PGPASSWORD  # We can change the name of the 
+
+

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: client-pod
+  namespace: development
+  labels:
+    component: web
+spec:
+  containers:
+    - name: client
+      image: stephengrider/multi-worker #changed from multi-client 
+      ports:
+        - containerPort: 3000
