@@ -13,6 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - uses: actions/checkout@v1
     - name: Started login 
       env:
         DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
@@ -23,4 +24,3 @@ jobs:
        docker build -t niteshldd/multi-client:latest ./kube-multi-client/test_com/client
        docker build -t niteshldd/multi-server:latest ./kube-multi-client/test_com/server
        docker build -t niteshldd/multi-worker:latest ./kube-multi-client/test_com/worker
-
