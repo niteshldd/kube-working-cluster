@@ -16,19 +16,10 @@ pipeline {
     }
     stage('Apply Kubernetes Files') {
       steps {
-          withKubeConfig([credentialsId: 'kubeconfig']) {
+          withKubeConfig([credentialsId: 'kubeconfig',serverUrl: 'https://api.kube.rukjaana.com']) {
           sh 'kubectl get all'
           sh 'kubectl rollout restart deployment/client-deployment -n development'
         }
       }
   }
-}
-post {
-    success {
-      slackSend(message: "Pipeline is successfully completed.")
-    }
-    failure {
-      slackSend(message: "Pipeline failed. Please check the logs.")
-    }
-}
 }
