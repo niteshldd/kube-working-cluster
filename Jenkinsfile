@@ -14,7 +14,7 @@ pipeline {
         }
       }
     }
-    stage('Apply Kubernetes Files') {
+    node('Apply Kubernetes Files') {
       steps {
           withKubeConfig([credentialsId: 'kubeconfig',serverUrl: 'https://api.kube.rukjaana.com']) {
           sh 'kubectl get all'
