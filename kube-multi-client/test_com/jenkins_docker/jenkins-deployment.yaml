@@ -22,6 +22,10 @@ spec:
       containers:
       - name: jenkins
         image: niteshldd/jenkins:latest
+        volumeMounts:
+        - name: jenkins-storage
+          mountPath: /var/jenkins_home
+          subPath: jenkins
         ports:
         - containerPort: 8080
         - containerPort: 50000
