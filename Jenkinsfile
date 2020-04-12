@@ -18,7 +18,6 @@ pipeline {
       steps {
           withKubeConfig([credentialsId: 'kubeconfig', serverUrl: 'https://api.kube.rukjaana.com']) {
           sh 'kubectl get all'
-          sh 'kubectl rollout restart deployment/client-deployment -n development'
         }
       }
   }
