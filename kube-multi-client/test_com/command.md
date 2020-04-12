@@ -140,5 +140,8 @@ Working docs for storage - https://dzone.com/articles/using-ebs-and-efs-as-persi
 
 https://kubernetes.io/docs/concepts/storage/storage-classes/
 
+Moving the file to new localtion and create link between 
+
+https://stackoverflow.com/questions/36014554/how-to-change-the-default-location-for-docker-create-volume-command
 --------DOCS FOR STORAGE ---------------------
 
