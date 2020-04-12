@@ -41,6 +41,16 @@ spec:
             backend:
               serviceName: jenkins-api-services
               servicePort: 50000
-
+    - host: clothgram.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: clothgram-server-cluster-ip-services
+              servicePort: 8000
+          # - path: /api/?(.*)
+          #   backend:
+          #     serviceName: jenkins-api-services
+          #     servicePort: 50000
 
   

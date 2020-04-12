@@ -120,6 +120,17 @@ We can get Jenkins token from
 - kubectl logs deployment/jenkins -c jenkins
 
 
+## UI GENERATE TOKEN 
+
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
+
+Run this to deploye 
+- kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.0.0-beta6/aio/deploy/recommended.yaml
+
+Expose to master - kubectl delete -f kube-multi-client/test_com/dashboard-ingress.yaml
+
+https://api.kube.rukjaana.com/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy/#/node?namespace=_all
+
 ## Artcile used for this 
 
 --------DOCS FOR STORAGE ---------------------
