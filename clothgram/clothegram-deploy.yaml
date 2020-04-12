@@ -16,9 +16,17 @@ spec:
       labels:
         component: clothgram-server
     spec:
+      volumes:
+        - name: clothgram-media
+          persistentVolumeClaim:
+            claimName: jenkins-storage
       containers:
         - name: clothgram-server
           image: niteshldd/clothgram:latest
+          volumeMounts:
+          - name: clothgram-media
+            mountPath: /app/media/
+            subPath: cloth-media
           # command: ["python3 manage.py migrate --no-input && python3 manage.py collectstatic --noinput && python3 manage.py populatedb --createsuperuser"]
           ports:
             - containerPort: 8000
