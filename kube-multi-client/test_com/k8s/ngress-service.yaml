@@ -46,7 +46,23 @@ spec:
         paths:
           - path: /?(.*)
             backend:
-              serviceName: clothgram-server-cluster-ip-services
+              serviceName: clothgram-frontend-cluster-ip-services
+              servicePort: 80
+
+    - host: dash-clothgram.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: clothgram-dashboard-cluster-ip-services
+              servicePort: 90
+
+    - host: api-clothgram.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: clothgram-server-cluster-ip-service
               servicePort: 8000
           # - path: /api/?(.*)
           #   backend:
