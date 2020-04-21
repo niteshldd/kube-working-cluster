@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ne-frontend-cluster-ip-service
+  namespace: production
+spec:
+  type: ClusterIP
+  selector:
+    component: ne-clothgram-frontend
+  ports:
+    - port: 3000 #this port will be available internally 
+      targetPort: 3000 #this port of web 

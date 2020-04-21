@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ne-clothgram-production-frontend
+  namespace: production
+spec:
+  strategy:
+    type: RollingUpdate
+  replicas: 1 # This what we are making extra changes compare to kind pod and adding matchlevels 
+  selector:
+    matchLabels:
+      component: ne-clothgram-frontend # This label give access to templates:metadata:labels 
+  template:
+    metadata:
+      labels:
+        component: ne-clothgram-frontend # This lable is used by match Labels
+    spec:
+      containers:
+        - name: ne-clothgram-frontend
+          image: niteshldd/ne-clothgram-frontend:latest
+          ports:
+           - containerPort: 3000 #changing configuration in client-deployment will applied by changing the configuration

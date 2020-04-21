@@ -69,4 +69,17 @@ spec:
           #     serviceName: jenkins-api-services
           #     servicePort: 50000
 
-  
+    - host: test-dash-cloth.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: clothgram-dashboard-cluster-ip-services-test
+              servicePort: 90
+    - host: test-clothgram.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: clothgram-frontend-cluster-ip-services-test
+              servicePort: 80
