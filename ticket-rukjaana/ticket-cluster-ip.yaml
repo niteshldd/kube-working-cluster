@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: rukjaana-ticket-server-cluster-ip-service
+  namespace: development
+spec:
+  type: ClusterIP
+  selector:
+    component: ticket-ruk-deployment
+  ports:
+    - port: 8118 #this port will be available internally 
+      targetPort: 8118 #this port of web 
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: rukjaana-mongo-cluster-ip-services
+  namespace: development
+spec:
+  type: ClusterIP
+  selector:
+    component: mongo-ticket-ruk
+  ports:
+    - port: 27017 #this port will be available internally 
+      targetPort: 27017 #this port of web 

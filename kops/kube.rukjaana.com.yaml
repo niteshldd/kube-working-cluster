@@ -31,7 +31,9 @@ spec:
     allowContainerRegistry: true
     legacy: false
   kubelet:
-    anonymousAuth: false
+    anonymousAuth: false   
+    authorizationMode: Webhook    #Added for matrics support 
+    authenticationTokenWebhook: true  #Added for matrics support 
   kubernetesApiAccess:
   - 0.0.0.0/0
   kubernetesVersion: 1.16.7

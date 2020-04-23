@@ -1,0 +1,78 @@
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-ruk-deployment
+  namespace: development
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      component: ticket-ruk-deployment
+  template:
+    metadata:
+      labels:
+        component: ticket-ruk-deployment
+    spec:
+      # volumes:
+      #   - name: ticket-media
+      #     persistentVolumeClaim:
+      #       claimName: jenkins-storage
+      containers:
+        - name: ticket-ruk-deployment
+          image: niteshldd/rukjaana-ticket:latest
+          # volumeMounts:
+          # - name: ticket-ruk-deployment
+          #   mountPath: /app/media/
+          #   subPath: cloth-media
+          # command: ["python3 manage.py migrate --no-input && python3 manage.py collectstatic --noinput && python3 manage.py populatedb --createsuperuser"]
+          ports:
+            - containerPort: 8118
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: TRUDESK_DOCKER
+              value: "true"
+            - name: TD_MONGODB_URI
+              value: mongodb://rukjaana-mongo-cluster-ip-services:27017 #need to change
+            - name: TD_MONGODB_DATABASE
+              value: ticket
+
+
+
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-ticket-ruk
+  namespace: development
+spec:
+  strategy:
+    type: RollingUpdate
+  replicas: 1 # This what we are making extra changes compare to kind pod and adding matchlevels 
+  selector:
+    matchLabels:
+      component: mongo-ticket-ruk # This label give access to templates:metadata:labels 
+  template:
+    metadata:
+      labels:
+        component: mongo-ticket-ruk # This lable is used by match Labels
+    spec:
+      volumes:
+        - name: mongo-ruk-storage
+          persistentVolumeClaim:
+            claimName: db-storage
+      containers:
+        - name: mongo-ticket-ruk
+          image: mongo:3.6
+          volumeMounts:
+            - name: mongo-ruk-storage
+              mountPath: /var/lib/mongo
+              subPath: mongo
+          ports:
+            - containerPort: 27017 #changing configuration in client-deployment will applied by changing the configuration
+

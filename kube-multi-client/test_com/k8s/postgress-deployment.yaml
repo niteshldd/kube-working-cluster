@@ -37,4 +37,6 @@ spec:
                   secretKeyRef: 
                     name: pgpassword
                     key: PGPASSWORD  # We can change the name of the 
+            resoursce:
+                
 #Create cluster of postgress 

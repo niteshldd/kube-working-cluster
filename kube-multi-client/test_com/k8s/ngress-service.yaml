@@ -83,3 +83,36 @@ spec:
             backend:
               serviceName: clothgram-frontend-cluster-ip-services-test
               servicePort: 80
+
+    - host: ticket.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: rukjaana-ticket-server-cluster-ip-service
+              servicePort: 8118
+    - host: www.ticket.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: rukjaana-ticket-server-cluster-ip-service
+              servicePort: 8118
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              

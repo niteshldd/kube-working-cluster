@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: ne-clothgram-production-frontend
+  name: ne-clothgram-frontend
   namespace: production
 spec:
   strategy:
@@ -19,4 +19,10 @@ spec:
         - name: ne-clothgram-frontend
           image: niteshldd/ne-clothgram-frontend:latest
           ports:
-           - containerPort: 3000 #changing configuration in client-deployment will applied by changing the configuration
+           - containerPort: 3000 
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m   
+          #changing configuration in client-deployment will applied by changing the configuration
