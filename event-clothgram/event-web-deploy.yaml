@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: event-web-clothgram
+  namespace: development
+spec:
+  strategy:
+    type: RollingUpdate
+  replicas: 1 # This what we are making extra changes compare to kind pod and adding matchlevels 
+  selector:
+    matchLabels:
+      component: event-web-clothgram # This label give access to templates:metadata:labels 
+  template:
+    metadata:
+      labels:
+        component: event-web-clothgram # This lable is used by match Labels
+    spec:
+      containers:
+        - name: event-web-clothgram
+          image: niteshldd/event-clothgram-frontend:latest
+          ports:
+           - containerPort: 4000 #changing configuration in client-deployment will applied by changing the configuration
+
+#Deplyoment will roll the new configuration 

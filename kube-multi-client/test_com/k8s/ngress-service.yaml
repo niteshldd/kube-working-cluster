@@ -6,6 +6,11 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # kubernetes.io/ingress.class: alb
+    # alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    # alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
 spec:
   rules:
     - host: dev.kube.rukjaana.com
@@ -41,7 +46,23 @@ spec:
             backend:
               serviceName: jenkins-api-services
               servicePort: 50000
+
+  ####CLOTHGRAM DOMAIN#######
     - host: clothgram.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: clothgram-frontend-cluster-ip-services
+              servicePort: 80
+    - host: clothgram.co
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: clothgram-frontend-cluster-ip-services
+              servicePort: 80
+    - host: www.clothgram.co
       http:
         paths:
           - path: /?(.*)
@@ -83,12 +104,15 @@ spec:
             backend:
               serviceName: clothgram-frontend-cluster-ip-services-test
               servicePort: 80
+###### CLOTHGRAM DOMAIN END #######
 
+#### TICKET DOMAIN START###########
     - host: ticket.kube.rukjaana.com
       http:
         paths:
           - path: /?(.*)
             backend:
+              serviceName: ssl-redirect
               serviceName: rukjaana-ticket-server-cluster-ip-service
               servicePort: 8118
     - host: www.ticket.kube.rukjaana.com
@@ -96,11 +120,44 @@ spec:
         paths:
           - path: /?(.*)
             backend:
+              serviceName: ssl-redirect
               serviceName: rukjaana-ticket-server-cluster-ip-service
               servicePort: 8118
+    - host: ticket.uruvelaa.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: ssl-redirect
+              serviceName: rukjaana-ticket-server-cluster-ip-service
+              servicePort: 8118
+####### TICKET DOMAIN END ###########
 
 
-
+    - host: event.clothgram.co
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: ssl-redirect
+              serviceName: event-web-cluster-ip-service
+              servicePort: 4000
+    - host: event.kube.rukjaana.com
+      http:
+        paths:
+          - path: /api/?(.*)
+            backend:
+              serviceName: ssl-redirect
+              serviceName: event-api-cluster-ip-service
+              servicePort: 8080
+    - host: event.clothgram.co
+      http:
+        paths:
+          - path: /api/?(.*)
+            backend:
+              serviceName: ssl-redirect
+              serviceName: event-api-cluster-ip-service
+              servicePort: 8080
 
 
 

@@ -1,0 +1,125 @@
+#
+# Deployment of the API Server and celery worker
+#
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: event-api-server
+  namespace: development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: event-api-server
+  template:
+    metadata:
+      labels:
+        component: event-api-server
+    spec:
+      # volumes:
+      # - name: data-store
+      #   emptyDir: {}
+      volumes:
+        - name: event-clothgram
+          persistentVolumeClaim:
+            claimName: jenkins-storage
+      containers:
+      - name: event-api-server
+        image: eventyay/open-event-server
+        # command: ["/bin/sh","-c"]
+        # args: ["./kubernetes/run.sh"]
+        # livenessProbe:
+        #   httpGet:
+        #     path: /health-check/
+        #     port: 8080
+        #   initialDelaySeconds: 30
+        #   timeoutSeconds: 3
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        envFrom:
+        - configMapRef:
+            name: event-api-server
+        env:
+        - name: POSTGRES_USER
+          value: postgres
+        - name: POSTGRES_PASSWORD
+          value: pg12345nitesh
+        - name: C_FORCE_ROOT
+          value: 'true'
+        - name: SECRET_KEY
+          value: 'niteshkwhdiw'
+        - name: DATABASE_URL
+          value: "postgres://postgres:pg12345nitesh@postrgess-cluster-ip-services:5432/opev"
+        - name: PYTHONUNBUFFERED
+          value: 'TRUE'
+        - name: INTEGRATE_SOCKETIO
+          value: 'false'
+        - name: TEST_DATABASE_URL
+          value: "postgres://postgres:pg12345nitesh@postrgess-cluster-ip-services:5432/opev_test"
+        - name: APP_CONFIG
+          value: config.DevelopmentConfig
+        - name: FLASK_APP
+          value: app.instance
+        - name: DEPLOYMENT
+          value: 'api'
+        - name: FORCE_SSL
+          value: 'yes'
+        volumeMounts:
+        - mountPath: /data/app/static
+          name: event-clothgram
+          subPath: event-clothgrams
+          mountPath: /data/app/generated
+          name: event-clothgram
+          subPath: generated-clothgrams
+      # - name: celery
+      #   image: eventyay/open-event-server
+      #   args: [celery]
+      #   # args: ["./kubernetes/run.sh"]
+      #   livenessProbe:
+      #     httpGet:
+      #       path: /health-check/
+      #       port: 8080
+      #     initialDelaySeconds: 30
+      #     timeoutSeconds: 3
+      #   ports:
+      #   - containerPort: 8080
+      #     protocol: TCP
+      #   envFrom:
+      #   - configMapRef:
+      #       name: event-api-server
+      #   env:
+      #   - name: POSTGRES_USER
+      #     value: postgres
+      #   - name: POSTGRES_PASSWORD
+      #     value: pg12345nitesh
+      #   - name: C_FORCE_ROOT
+      #     value: 'true'
+      #   - name: SECRET_KEY
+      #     value: 'niteshkwhdiw'
+      #   - name: DATABASE_URL
+      #     value: "postgres://postgres:pg12345nitesh@postrgess-cluster-ip-services:5432/opev"
+      #   - name: PYTHONUNBUFFERED
+      #     value: 'TRUE'
+      #   - name: INTEGRATE_SOCKETIO
+      #     value: 'false'
+      #   - name: TEST_DATABASE_URL
+      #     value: "postgres://postgres:pg12345nitesh@postrgess-cluster-ip-services:5432/opev_test"
+      #   - name: APP_CONFIG
+      #     value: config.DevelopmentConfig
+      #   - name: FLASK_APP
+      #     value: app.instance
+      #   - name: DEPLOYMENT
+      #     value: 'api'
+      #   - name: FORCE_SSL
+      #     value: 'yes'
+      #   - name: C_FORCE_ROOT
+      #     value: "true"
+      #   volumeMounts:
+      #   - mountPath: /data/app/static
+      #     name: event-clothgram
+      #     subPath: event-clothgrams
+      #     mountPath: /data/app/generated
+      #     name: event-clothgram
+      #     subPath: generated-clothgrams
+    
