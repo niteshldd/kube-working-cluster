@@ -25,7 +25,8 @@ spec:
             claimName: jenkins-storage
       containers:
       - name: event-api-server
-        image: eventyay/open-event-server
+        # image: eventyay/open-event-server
+        image: niteshldd/event-clothgram-server
         # command: ["/bin/sh","-c"]
         # args: ["./kubernetes/run.sh"]
         # livenessProbe:

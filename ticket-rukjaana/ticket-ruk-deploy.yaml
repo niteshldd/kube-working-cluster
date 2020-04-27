@@ -30,6 +30,11 @@ spec:
           # command: ["python3 manage.py migrate --no-input && python3 manage.py collectstatic --noinput && python3 manage.py populatedb --createsuperuser"]
           ports:
             - containerPort: 8118
+          resources:
+            limits:
+              cpu: 500m
+            requests:
+              cpu: 200m
           env:
             - name: NODE_ENV
               value: production
@@ -76,3 +81,24 @@ spec:
           ports:
             - containerPort: 27017 #changing configuration in client-deployment will applied by changing the configuration
 
+---
+
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  namespace: development
+  name: ticket-ruk-deployment
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: ticket-ruk-deployment
+  minReplicas: 1
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 50
