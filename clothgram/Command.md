@@ -18,3 +18,20 @@ Article which help to solve this
 
 
 kubectl exec -it shell-demo -- /bin/bash
+
+
+DATABASE CREATION 
+
+kubectl exec [POD] [COMMAND] is DEPRECATED and will be removed in a future version. Use kubectl kubectl exec [POD] -- [COMMAND] instead.
+# CREATE DATABASE postgres1
+sh: 1: CREATE: not found
+# psql    
+psql: error: could not connect to server: FATAL:  role "root" does not exist
+# psql -U postgres
+psql (12.2 (Debian 12.2-2.pgdg100+1))
+Type "help" for help.
+
+postgres=# CREATE DATABASE postgres3;
+CREATE DATABASE
+postgres=# exit
+# exit

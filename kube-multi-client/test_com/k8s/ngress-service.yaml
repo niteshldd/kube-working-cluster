@@ -85,10 +85,14 @@ spec:
             backend:
               serviceName: clothgram-server-cluster-ip-service
               servicePort: 8000
-          # - path: /api/?(.*)
-          #   backend:
-          #     serviceName: jenkins-api-services
-          #     servicePort: 50000
+
+    - host: api-test.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: clothgram-api-test-cluster-ip-service-test
+              servicePort: 8000
 
     - host: test-dash-cloth.kube.rukjaana.com
       http:
@@ -104,6 +108,8 @@ spec:
             backend:
               serviceName: clothgram-frontend-cluster-ip-services-test
               servicePort: 80
+
+
 ###### CLOTHGRAM DOMAIN END #######
 
 #### TICKET DOMAIN START###########

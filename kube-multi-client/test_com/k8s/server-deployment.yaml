@@ -17,7 +17,9 @@ spec:
     spec:
       containers:
         - name: server
-          image: niteshldd/multi-server
+          imagePullPolicy: Always
+          # image: niteshldd/multi-server
+          image: niteshldd/saleor_test          
           ports:
             - containerPort: 5000
           env:
@@ -38,5 +40,9 @@ spec:
                 secretKeyRef: 
                   name: pgpassword
                   key: PGPASSWORD  # We can change the name of the 
+            # - name: COUNTRY
+            #   value: India
+            # - name: CURRENCY
+            #   value: INR
 
 

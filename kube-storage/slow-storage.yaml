@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: slow
+  namespace: development
+provisioner: kubernetes.io/aws-ebs
+parameters:
+  type: st1
+allowVolumeExpansion: true
+mountOptions:
+  - debug
+volumeBindingMode: Immediate
