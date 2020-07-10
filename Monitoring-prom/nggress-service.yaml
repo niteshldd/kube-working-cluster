@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-service
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # kubernetes.io/ingress.class: alb
+    # alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
+    # alb.ingress.kubernetes.io/actions.ssl-redirect: '{"Type": "redirect", "RedirectConfig": { "Protocol": "HTTPS", "Port": "443", "StatusCode": "HTTP_301"}}'
+spec:
+  rules:
+    - host: prom.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: prometheus-server
+              servicePort: 80
+    
+    # - host: grafana.kube.rukjaana.com
+    #   http:
+    #     paths:
+    #       - path: /?(.*)
+    #         backend:
+    #           serviceName: grafana
+    #           servicePort: 3000
+    

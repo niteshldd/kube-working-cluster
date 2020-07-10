@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: efs-pvnew
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: efs-scnew
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-b0c24e61	
+
+---
+
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: efs-elastic
+spec:
+  capacity:
+    storage: 5Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: elastic-data
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: fs-f330bd22
+---
+
+# ---
+
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: efs-mysql
+# spec:
+#   capacity:
+#     storage: 5Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - ReadWriteMany
+#   persistentVolumeReclaimPolicy: Retain
+#   storageClassName: efs-mysql
+#   csi:
+#     driver: efs.csi.aws.com
+#     volumeHandle: fs-ad9c1c7c

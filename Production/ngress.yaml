@@ -6,6 +6,7 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /$1
+    ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
 spec:
   rules:
@@ -17,6 +18,20 @@ spec:
               serviceName: ne-frontend-cluster-ip-service
               servicePort: 3000
     - host: www.ne.kube.rukjaana.com
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: ne-frontend-cluster-ip-service
+              servicePort: 3000
+    - host: nedevelopers.in
+      http:
+        paths:
+          - path: /?(.*)
+            backend:
+              serviceName: ne-frontend-cluster-ip-service
+              servicePort: 3000
+    - host: www.nedevelopers.in
       http:
         paths:
           - path: /?(.*)
